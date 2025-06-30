@@ -1,6 +1,11 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '@/views/DashboardView.vue'
 import LoginView from '@/views/LoginView.vue'
+import AttendanceView from '@/views/AttendanceView.vue'
+import LeaveView from '@/views/LeaveView.vue'
+import EmployeesView from '@/views/EmployeesView.vue'
+import PerformanceView from '@/views/PerformanceView.vue'
+import PayrollView from '@/views/PayrollView.vue'
 
 const routes = [
   {
@@ -13,6 +18,26 @@ const routes = [
     component: DashboardView
   },
   {
+    path: '/attendance',
+    name: 'attendance',
+    component: AttendanceView
+  },
+  {
+    path: '/payroll',
+    name: 'payroll',
+    component: PayrollView
+  },
+  {
+    path: '/leave',
+    name: 'leave',
+    component: LeaveView
+  },
+  {
+    path: '/performance',
+    name: 'performance',
+    component: PerformanceView
+  },
+  {
     path: '/login',
     name: 'login',
     component: LoginView
@@ -21,6 +46,11 @@ const routes = [
     path: '/about',
     name: 'about',
     component: () => import('../views/AboutView.vue')
+  },
+  {
+  path: '/employees',
+  name: 'Employees',
+  component: () => import('@/views/EmployeesView.vue')
   }
 ]
 

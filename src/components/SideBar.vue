@@ -1,6 +1,5 @@
 <template>
   <div>
-    <!-- Hamburger Toggle Button - stays fixed at the top -->
     <button @click="toggleSidebar" class="toggle-btn" aria-label="Toggle sidebar">
       <span class="hamburger-icon">
         <span></span>
@@ -9,7 +8,6 @@
       </span>
     </button>
 
-    <!-- Sidebar with transition -->
     <transition name="sidebar">
       <nav :class="['sidebar', { collapsed: isCollapsed }]">
         <div class="sidebar-inner">
@@ -27,8 +25,6 @@
               </RouterLink>
             </li>
           </ul>
-
-          <!-- Logout Button -->
           <button @click="logout" class="btn btn-outline-danger mt-4 w-100 d-flex align-items-center justify-content-center">
             <i class="bi bi-box-arrow-right me-2"></i>
             <span v-if="!isCollapsed">Logout</span>
@@ -43,9 +39,7 @@
 import { ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
-const sidebarVisible = ref(true)
-const isCollapsed = ref(false)
-
+const isCollapsed = ref(true)
 const route = useRoute()
 const router = useRouter()
 
@@ -59,6 +53,7 @@ const menuItems = [
   { path: '/payroll', label: 'Payroll', icon: 'bi-currency-dollar' },
   { path: '/leave', label: 'Leave Requests', icon: 'bi-calendar-x-fill' },
   { path: '/attendance', label: 'Attendance', icon: 'bi-clock-fill' },
+  { path: '/performance', label: 'Performance', icon: 'bi-graph-up-arrow' },
 ]
 
 const isActive = (path) => {
@@ -72,7 +67,6 @@ function logout() {
 </script>
 
 <style scoped>
-/* Hamburger button */
 .toggle-btn {
   position: fixed;
   top: 15px;
@@ -92,7 +86,6 @@ function logout() {
   height: 22px;
   position: relative;
 }
-
 .hamburger-icon span {
   background-color: #333;
   display: block;
@@ -103,49 +96,41 @@ function logout() {
   left: 0;
   transition: all 0.25s ease-in-out;
 }
+.hamburger-icon span:nth-child(1) { top: 0; }
+.hamburger-icon span:nth-child(2) { top: 9px; }
+.hamburger-icon span:nth-child(3) { top: 18px; }
 
-.hamburger-icon span:nth-child(1) {
-  top: 0;
-}
-
-.hamburger-icon span:nth-child(2) {
-  top: 9px;
-}
-
-.hamburger-icon span:nth-child(3) {
-  top: 18px;
-}
-
-/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 250px;
-  background-color: #f8f9fa;
+  width: 200px;
+  background-color: #fbf9f5;
   border-right: 1px solid #dee2e6;
   padding: 1rem;
   transition: width 0.3s ease;
   overflow-x: hidden;
-  z-index: 1000;
   display: flex;
   flex-direction: column;
+  z-index: 1000;
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  /* color: #333; */
 }
-
 .sidebar.collapsed {
   width: 70px;
   padding: 1rem 0.5rem;
 }
 
-/* Prevent content jump */
 .sidebar-inner {
-  flex-grow: 1;
+  flex: 1;
   display: flex;
   flex-direction: column;
+  padding-top: 60px;
+  overflow-y: auto;
+
 }
 
-/* Hide text on collapse */
 .sidebar.collapsed .nav-link span,
 .sidebar.collapsed h4,
 .sidebar.collapsed button span {
@@ -153,29 +138,37 @@ function logout() {
 }
 
 .nav-link {
-  color: #333;
-  transition: background-color 0.2s;
-  font-weight: 500;
+  background-color: #708090;
+  color: white !important;
+  font-weight: bold;
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  margin-bottom: 0.5rem;
+  transition: background-color 0.3s ease;
   white-space: nowrap;
 }
 
+.nav-link:hover,
 .nav-link.active {
-  background-color: #0d6efd;
-  color: white;
+  background-color: #41464a;
+  color: white !important;
 }
 
-.nav-link:hover {
-  background-color: #084298;
-  color: white;
-  cursor: pointer;
+.nav-link.active,
+.router-link-active.nav-link {
+  background-color: #41464a !important;
+  color: white !important;
 }
 
-/* Icon alignment */
 .sidebar.collapsed .nav-link {
   justify-content: center;
+  padding-left: 0;
+  padding-right: 0;
+}
+.sidebar.collapsed .nav-link i {
+  margin-right: 0 !important;
 }
 
-/* Logout Button */
 .btn {
   width: 100%;
   transition: all 0.3s ease;
@@ -184,4 +177,5 @@ function logout() {
 .sidebar.collapsed button {
   justify-content: center;
 }
+
 </style>
